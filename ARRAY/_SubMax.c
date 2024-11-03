@@ -1,3 +1,4 @@
+// sub Maxtric
 #include <stdio.h>
 int main()
 {
