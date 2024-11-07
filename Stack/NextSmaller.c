@@ -1,83 +1,83 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 struct Stack
 {
-    int top, capacity;
-    int *Array;
+    int top;
+    unsigned capacity;
+    int *array;
 };
-struct Stack *create(int size)
+
+struct Stack *createStack(unsigned capacity)
 {
-    struct Stack *s = (struct Stack *)malloc(sizeof(struct Stack));
-    s->top = -1;
-    s->capacity = size;
-    s->Array = (int *)calloc(s->capacity, sizeof(int));
-    return s;
+    struct Stack *stack = (struct Stack *)malloc(sizeof(struct Stack));
+    stack->capacity = capacity;
+    stack->top = -1;
+    stack->array = (int *)malloc(stack->capacity * sizeof(int));
+    return stack;
 }
-int isFull(struct Stack *s)
+
+int isEmpty(struct Stack *stack)
 {
-    if ((s->top + 1) == s->capacity)
-        return 1;
-    else
-        return 0;
+    return stack->top == -1;
 }
-int isEmpty(struct Stack *s)
+
+int isFull(struct Stack *stack)
 {
-    if (s->top == -1)
-        return 1;
-    else
-        return 0;
+    return stack->top == stack->capacity - 1;
 }
-void push(struct Stack *s, int data)
+
+void push(struct Stack *stack, int item)
 {
-    if (!isFull(s))
-    {
-        s->top++;
-        s->Array[s->top] = data;
-    }
+    if (isFull(stack))
+        return;
+    stack->array[++stack->top] = item;
 }
-int pop(struct Stack *s)
+
+int pop(struct Stack *stack)
 {
-    int data;
-    if (!isEmpty(s))
-    {
-        data = s->Array[s->top];
-        s->top--;
-    }
-    return data;
+    if (isEmpty(stack))
+        return -1;
+    return stack->array[stack->top--];
 }
-int peek(struct Stack *s)
+
+int peek(struct Stack *stack)
 {
-    if (!isEmpty(s))
-        return s->Array[s->top];
+    if (isEmpty(stack))
+        return -1;
+    return stack->array[stack->top];
 }
-int small(struct Stack *s, int arr[], int n, int i)
-{
-    int data = -1;
-    int a = pop(s);
-    for (i = i + 1; i < n; i++)
-    {
-        if (a >= arr[i])
-        {
-            data = 1;
-            break;
-        }
-    }
-    return data;
-}
+
 int main()
 {
-    struct Stack *s;
-    int n, data;
+    // Write your code here
+    struct Stack *s = NULL;
+    int n;
     scanf("%d", &n);
-    s = create(5);
+    s = createStack(n);
+    int j=0, f = 1, ans[n];
     int arr[n];
     for (int i = 0; i < n; i++)
         scanf("%d", &arr[i]);
-    for(int i=n-1;i>=0;i--)
-        push(s,arr[i]);
+    for (int i = n - 1; i >= 0; i--)
+        push(s, arr[i]);
+    for (int k = 0; k < n; k++)
+    {
+        f=1;
+        for (int i = k; i < n; i++)
+        {
+            if (arr[i + 1] <= peek(s))
+            {
+                f = 0;
+                ans[j++] = arr[i+1];
+                break;
+            }
+        }
+        if (f==1)
+            ans[j++] = -1;
+        pop(s);
+    }
     for (int i = 0; i < n; i++)
-        arr[i]=small(s, arr, n, i);
-    for (int i =0; i<n; i++)
-        printf("%d ", arr[i]);
+        printf("%d ", ans[i]);
     return 0;
 }

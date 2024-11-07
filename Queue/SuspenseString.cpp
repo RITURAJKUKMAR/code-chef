@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include <deque>
+
 using namespace std;
 int main()
 {
@@ -13,7 +14,8 @@ int main()
         char str[n];
         deque<int> myDequestr;
         deque<int> myDeque;
-        cin>>str;
+        for(int i=0;i<n;i++)
+            cin>>str[i];
         for (int i = 0; i < n; i++)
         {
             if (str[i] == '0')
