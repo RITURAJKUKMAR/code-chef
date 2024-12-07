@@ -14,8 +14,13 @@ int main()
         char str[n];
         deque<int> myDequestr;
         deque<int> myDeque;
-        for(int i=0;i<n;i++)
-            cin>>str[i];
+        // fflush(stdin);
+        // gets(str);
+        cin>>str;
+        // for(int i=0;i<n;i++)
+        //     cin>>str[i];
+        cout << str << endl;
+        cout<<n<<endl;
         for (int i = 0; i < n; i++)
         {
             if (str[i] == '0')
@@ -23,6 +28,7 @@ int main()
             else if (str[i] == '1')
                 myDequestr.push_back(1);
         }
+        cout << myDequestr.front() << endl;
         while (!myDequestr.empty())
         {
             if (myDequestr.front() == 1)
