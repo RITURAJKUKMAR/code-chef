@@ -28,3 +28,4 @@ int main()
     struct AM *root=NULL;
     return 0;
 }
+// not final
