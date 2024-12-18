@@ -1,31 +1,23 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<conio.h>
-struct AM
-{
-    int data;
-    struct AM *left,*right;
-};
-struct AM *create(int data)
-{
-    struct AM *New=(struct AM*)malloc(sizeof(struct AM));
-    New->left=New->right=NULL;
-    New->data=data;
-    return New;
-}
-void insertLeft(struct AM **root,int rData,int data)
-{
-    if(*root==NULL)
-        *root=create(rData);
-    else
-    {
-        if((*root)->data==rData)
-            insertLeft(&root,rData,data);
+#include <stdio.h>
+
+#include <stdlib.h>
+
+int main() {
+    int n;
+    scanf("%d", & n);
+    int arr[n][n];
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            arr[i][j] = 0;
+    int input[n];
+    int l, m;
+    for (int i = 0; i < n - 1; i++) {
+        scanf("%d %d", & l, & m);
+        arr[l][m]=1;
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++)
+            printf("%d ", arr[i][j]);
+        printf("\n");
     }
 }
-int main()
-{
-    struct AM *root=NULL;
-    return 0;
-}
-// not final

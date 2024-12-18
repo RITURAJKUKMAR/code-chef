@@ -1,6 +1,5 @@
-#include <bits/stdc++.h>
-#include <deque>
-
+#include <iostream>
+#include <string>
 using namespace std;
 int main()
 {
@@ -9,47 +8,34 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n, data;
+        int n, e = 0;
         cin >> n;
-        char str[n];
-        deque<int> myDequestr;
-        deque<int> myDeque;
-        // fflush(stdin);
-        // gets(str);
-        cin>>str;
-        // for(int i=0;i<n;i++)
-        //     cin>>str[i];
-        cout << str << endl;
-        cout<<n<<endl;
-        for (int i = 0; i < n; i++)
+        string s;
+        cin >> s;
+        string t;
+        if (n % 2 == 0)
+            e = 1;
+        for (int i = 0; i < n / 2; i++)
         {
-            if (str[i] == '0')
-                myDequestr.push_back(0);
-            else if (str[i] == '1')
-                myDequestr.push_back(1);
-        }
-        cout << myDequestr.front() << endl;
-        while (!myDequestr.empty())
-        {
-            if (myDequestr.front() == 1)
-                myDeque.push_back(myDequestr.front());
+            if (s[i] == '0')
+                t.insert(0, "0");
             else
-                myDeque.push_front(myDequestr.front());
-            myDequestr.pop_front();
-
-            if (myDequestr.back() == 1)
-                myDeque.push_front(myDequestr.back());
+                t = t + '1';
+            int k = n - 1 - i;
+            if (s[k] == '0')
+                t = t + '0';
             else
-                myDeque.push_back(myDequestr.back());
-
-            myDequestr.pop_back();
+                t.insert(0, "1");
         }
-        while (!myDeque.empty())
+        if (e == 0)
         {
-            cout << myDeque.front();
-            myDeque.pop_front();
+            int i = (n - 1) / 2;
+            if (s[i] == '0')
+                t.insert(0, "0");
+            else
+                t = t + '1';
         }
-        cout << endl;
+        cout << t << endl;
     }
     return 0;
 }
